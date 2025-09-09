@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  header {
+    text-align: center;
+    padding: 40px 0 20px;
+    font-size: 2.4em;
+    font-weight: bold;
+  }
+
+  .button-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    width: 80%;
+    margin: auto;
+    margin-top: 50px;
+  }
+
+  .btn {
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+
+  .btn:hover {
+    transform: translateY(-10px) scale(1.05);
+    background: rgba(255,255,255,0.2);
+  }
+
+  .btn .icon {
+    font-size: 3.4em; /* 75% of 4.5em */
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 15px 0;
+    margin-top: auto;
+    background: rgba(0,0,0,0.25);
+    font-size: 14px;
+  }
+
+</style>
+</head>
+<body>
+<header> Finance Buddy </header>
+
+<div class="button-grid">
+  <div class="btn" onclick="location.href='profile.html'">
+    <span class="icon">👤</span>
+    Profile
+  </div>
+
+  <div class="btn" onclick="location.href='https://genai1-nh3r59bnyh6rlypbh4qskb.streamlit.app/'">
+    <span class="icon">🤖</span>
+    Chatbot
+  </div>
+
+  <div class="btn" onclick="location.href='calculator.html'">
+    <span class="icon">🧮</span>
+    Financial Calculator
+  </div>
+
+  <div class="btn" onclick="location.href='goal.html'">
+    <span class="icon">🎯</span>
+    Goals
+  </div>
+
+  <div class="btn" onclick="location.href='games.html'">
+    <span class="icon">🎮</span>
+    Games
+  </div>
+
+  <div class="btn" onclick="location.href='library.html'">
+    <span class="icon">📚</span>
+    Library
+  </div>
+</div>
+
+<footer>Made with ❤️ by AlgoNauts </footer>
+
+</body>
+</html>

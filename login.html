@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+</head>
+<body>
+  <h1>Login</h1>
+  <input type="text" id="userID" placeholder="Enter your User ID"><br><br>
+  <input type="password" id="password" placeholder="Enter your password"><br><br>
+  <button onclick="login()">Login</button>
+
+  <p id="message"></p>
+
+  <script>
+    function login() {
+      let userID = document.getElementById("userID").value;
+      let password = document.getElementById("password").value;
+
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+
+      if (users[userID] && users[userID].password === password) {
+        localStorage.setItem("loggedInUser", userID); // store session
+        window.location.href = "profile.html"; // redirect
+      } else {
+        document.getElementById("message").innerText = "❌ Wrong ID or Password!";
+      }
+    }
+  </script>
+</body>
+</html>

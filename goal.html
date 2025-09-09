@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Goals Tracker</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    text-align: center;
+    padding: 30px 0;
+    font-size: 2em;
+    font-weight: bold;
+  }
+  .container {
+    max-width: 600px;
+    margin: auto;
+    background: rgba(0,0,0,0.3);
+    padding: 30px;
+    border-radius: 20px;
+  }
+  input, button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+  }
+  button {
+    background: #4A90E2;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  button:hover {
+    background: #357ABD;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+  }
+  .goal-name { font-weight: bold; font-size: 1.1em; }
+  .progress-container {
+    background: #ccc;
+    height: 15px;
+    border-radius: 8px;
+    margin-top: 5px;
+  }
+  .progress-bar {
+    background: #4A90E2;
+    height: 100%;
+    border-radius: 8px;
+  }
+  footer {
+    text-align: center;
+    padding: 10px 0;
+    background: rgba(0,0,0,0.2);
+    font-size: 14px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+
+<header>Financial Goals Tracker</header>
+
+<div class="container">
+  <h2>Add a New Goal</h2>
+  <input type="text" id="goalName" placeholder="Goal Name (e.g., Buy Laptop)">
+  <input type="number" id="goalAmount" placeholder="Target Amount">
+  <input type="number" id="currentAmount" placeholder="Current Saved Amount">
+  <input type="date" id="goalDate">
+  <button onclick="saveGoal()">Add Goal</button>
+
+  <h2>My Goals</h2>
+  <ul id="goalList"></ul>
+</div>
+
+<footer>Made with ❤️ by AlgoNauts</footer>
+
+<script>
+function saveGoal() {
+  let name = document.getElementById("goalName").value;
+  let amount = parseFloat(document.getElementById("goalAmount").value);
+  let current = parseFloat(document.getElementById("currentAmount").value);
+  let date = document.getElementById("goalDate").value;
+
+  if(!name || !amount || isNaN(current) || !date) {
+    alert("Please fill all fields!");
+    return;
+  }
+
+  let goals = JSON.parse(localStorage.getItem("goals")) || [];
+  goals.push({name, amount, current, date});
+  localStorage.setItem("goals", JSON.stringify(goals));
+  renderGoals();
+  
+  // clear inputs
+  document.getElementById("goalName").value = '';
+  document.getElementById("goalAmount").value = '';
+  document.getElementById("currentAmount").value = '';
+  document.getElementById("goalDate").value = '';
+}
+
+function renderGoals() {
+  let goals = JSON.parse(localStorage.getItem("goals")) || [];
+  let list = document.getElementById("goalList");
+  list.innerHTML = '';
+  goals.forEach((g, index)=>{
+    let li = document.createElement("li");
+    let percentage = Math.min((g.current / g.amount) * 100, 100).toFixed(0);
+    li.innerHTML = `
+      <div class="goal-name">${g.name} - ₹${g.current} / ₹${g.amount} by ${g.date}</div>
+      <div class="progress-container">
+        <div class="progress-bar" style="width:${percentage}%"></div>
+      </div>
+      <button onclick="deleteGoal(${index})" style="margin-top:10px; background:#E74C3C;">Delete</button>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function deleteGoal(index) {
+  let goals = JSON.parse(localStorage.getItem("goals")) || [];
+  goals.splice(index, 1);
+  localStorage.setItem("goals", JSON.stringify(goals));
+  renderGoals();
+}
+
+// initial render
+renderGoals();
+</script>
+
+</body>
+</html>

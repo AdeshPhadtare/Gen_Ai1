@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+</head>
+<body>
+  <h1>Create New Account</h1>
+  <input type="text" id="name" placeholder="Enter your name"><br><br>
+  <input type="password" id="password" placeholder="Enter password"><br><br>
+  <button onclick="register()">Register</button>
+
+  <p id="message"></p>
+
+  <script>
+    function register() {
+      let name = document.getElementById("name").value;
+      let password = document.getElementById("password").value;
+
+      if (!name || !password) {
+        alert("Fill all fields!");
+        return;
+      }
+
+      // Retrieve users or create empty object
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+
+      // Generate random userID
+      let userID = "user" + Math.floor(Math.random() * 10000);
+
+      // Store new user
+      users[userID] = { password: password, name: name };
+      localStorage.setItem("users", JSON.stringify(users));
+
+      document.getElementById("message").innerText =
+        `✅ Account created! Your ID is: ${userID}. Save it to log in.`;
+    }
+  </script>
+</body>
+</html>
